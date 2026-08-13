@@ -1,0 +1,124 @@
+{
+  "pluginAlias": "PhilipsTV",
+  "pluginType": "accessory",
+  "singular": false,
+  "headerDisplay": "Homebridge accessory for Philips TVs with the JointSpace API enabled, including Ambilight and Ambilight+Hue support.",
+  "footerDisplay": "See the [README](https://github.com/rafaelgaspar/homebridge-philipstv-hue-2020#readme) for details on pairing 2016+ Android TV models and finding your TV's Wake-on-LAN URL.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "TV",
+        "required": true
+      },
+      "ip_address": {
+        "title": "IP Address",
+        "type": "string",
+        "format": "hostname",
+        "required": true,
+        "description": "The local IP address of the TV."
+      },
+      "model_year": {
+        "title": "Model Year",
+        "type": "integer",
+        "default": 2020,
+        "required": true,
+        "description": "Used to pick the correct JointSpace API version (>=2016 uses API v6 with digest authentication, 2014-2015 uses API v5, older uses API v1)."
+      },
+      "has_ssl": {
+        "title": "Uses HTTPS (port 1926)",
+        "type": "boolean",
+        "default": false,
+        "description": "Enable for 2016+ Android TV models, which serve the JointSpace API over HTTPS on port 1926 instead of HTTP on port 1925."
+      },
+      "username": {
+        "title": "API Username",
+        "type": "string",
+        "description": "Digest-authentication username, required for 2016+ Android TV models. See the README for pairing instructions."
+      },
+      "password": {
+        "title": "API Password",
+        "type": "string",
+        "description": "Digest-authentication password, required for 2016+ Android TV models. See the README for pairing instructions."
+      },
+      "poll_status_interval": {
+        "title": "Poll Status Interval (seconds)",
+        "type": "integer",
+        "default": 0,
+        "minimum": 0,
+        "description": "How often to poll the TV for its current state, in seconds. 0 disables polling."
+      },
+      "has_ambilight": {
+        "title": "Has Ambilight",
+        "type": "boolean",
+        "default": false
+      },
+      "has_hue": {
+        "title": "Has Ambilight+Hue",
+        "type": "boolean",
+        "default": false,
+        "description": "Enable if this TV's Ambilight is paired with Philips Hue lights."
+      },
+      "has_chromecast": {
+        "title": "Has built-in Chromecast",
+        "type": "boolean",
+        "default": false,
+        "description": "Also attempt to wake the TV via its built-in Chromecast before falling back to Wake-on-LAN. Requires the Chromecast power-up option enabled in the TV settings."
+      },
+      "hide_input_selector": {
+        "title": "Hide Input Selector",
+        "type": "boolean",
+        "default": false,
+        "description": "Disable the input source selector, which works by sending a sequence of remote-control buttons and can be unreliable on some models."
+      },
+      "info_button": {
+        "title": "Info Button Remote Key",
+        "type": "string",
+        "default": "Source",
+        "description": "The JointSpace remote-control key sent when the Control Center info button is pressed (e.g. \"Options\", \"Home\", \"Source\")."
+      },
+      "playpause_button": {
+        "title": "Play/Pause Button Remote Key",
+        "type": "string",
+        "default": "Options",
+        "description": "The JointSpace remote-control key sent when the Control Center play/pause button is pressed (e.g. \"PlayPause\", \"Options\")."
+      },
+      "wol_url": {
+        "title": "Wake-on-LAN URL",
+        "type": "string",
+        "placeholder": "wol://18:8e:d5:a2:8c:66",
+        "description": "wol://<MAC address> used to power the TV on from standby. Required to turn the TV on remotely."
+      },
+      "wol_urls": {
+        "title": "Additional Wake-on-LAN URLs",
+        "type": "array",
+        "items": {
+          "type": "string",
+          "placeholder": "wol://18:8e:d5:a2:8c:66"
+        },
+        "description": "Extra wol://<MAC address> entries, tried in order alongside \"Wake-on-LAN URL\" (useful for TVs with multiple network interfaces)."
+      },
+      "etherwake_exec": {
+        "title": "etherwake Executable Path",
+        "type": "string",
+        "placeholder": "/usr/sbin/etherwake",
+        "description": "Optional path to an \"etherwake\" executable, tried in addition to the built-in Wake-on-LAN implementation when it fails to wake the TV."
+      },
+      "serial_number": {
+        "title": "Serial Number",
+        "type": "string",
+        "description": "Shown in HomeKit's accessory info. Defaults to the first Wake-on-LAN MAC address, or a placeholder if none is set."
+      }
+    }
+  },
+  "layout": [
+    { "type": "fieldset", "title": "Connection", "items": ["name", "ip_address", "model_year", "has_ssl"] },
+    { "type": "fieldset", "title": "2016+ Android TV Authentication", "items": ["username", "password"] },
+    { "type": "fieldset", "title": "Features", "items": ["poll_status_interval", "has_ambilight", "has_hue", "has_chromecast", "hide_input_selector"] },
+    { "type": "fieldset", "title": "Remote Buttons", "items": ["info_button", "playpause_button"] },
+    { "type": "fieldset", "title": "Power On (Wake-on-LAN)", "items": ["wol_url", "wol_urls", "etherwake_exec"] },
+    { "type": "fieldset", "title": "Advanced", "items": ["serial_number"] }
+  ]
+}

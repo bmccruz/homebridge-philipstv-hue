@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Renovate for homebridge-philipstv-hue-2020 — npm dependencies and GitHub Actions pins. Runs self-hosted via .github/workflows/renovate.yaml, authenticating as a GitHub App rather than the hosted Renovate GitHub App.",
+  "extends": [
+    "config:best-practices",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)",
+    ":label(renovate)"
+  ],
+  "timezone": "UTC",
+  "dependencyDashboardTitle": "Renovate Dependency Dashboard - homebridge-philipstv-hue-2020",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 4am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "All non-major npm dependency updates in one PR; majors stay separate for manual review",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "npm dependencies",
+      "groupSlug": "npm-dependencies"
+    },
+    {
+      "description": "All non-major GitHub Actions updates (tags, digests) in one PR; majors stay separate",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "groupSlug": "github-actions"
+    },
+    {
+      "description": "Automerge non-major updates once CI passes; majors stay manual",
+      "matchUpdateTypes": ["minor", "patch", "digest", "pin", "pinDigest"],
+      "automerge": true
+    }
+  ]
+}

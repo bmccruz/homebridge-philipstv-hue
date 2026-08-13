@@ -1,4 +1,10 @@
-# homebridge-philipstv-enhanced
+# homebridge-philipstv-hue-2020
+
+[![npm](https://img.shields.io/npm/v/homebridge-philipstv-hue-2020)](https://www.npmjs.com/package/homebridge-philipstv-hue-2020)
+[![CI](https://github.com/rafaelgaspar/homebridge-philipstv-hue-2020/actions/workflows/ci.yaml/badge.svg)](https://github.com/rafaelgaspar/homebridge-philipstv-hue-2020/actions/workflows/ci.yaml)
+[![Gitleaks](https://github.com/rafaelgaspar/homebridge-philipstv-hue-2020/actions/workflows/gitleaks.yaml/badge.svg)](https://github.com/rafaelgaspar/homebridge-philipstv-hue-2020/actions/workflows/gitleaks.yaml)
+[![license](https://img.shields.io/npm/l/homebridge-philipstv-hue-2020)](./LICENSE)
+
 Homebridge module for Philips TV (with JointSpace enabled) with Power on/off, Sound, Ambilight with Hue On/Off and source input control
 
 # Description
@@ -19,17 +25,25 @@ support for an external "etherwake" executable.
 
 Modified by [bmccruz](https://github.com/bmccruz) to add support to Ambilight+Hue for Saphi TVs.
 
+Modified by [rafaelgaspar](https://github.com) to add support for Saphi TVs Ambilight that only have On/Off for Ambilight
+
 # Installation
 
+Search for "Philips TV" in [Homebridge UI](https://github.com/homebridge/homebridge-config-ui-x)'s
+plugin tab and install from there — it also provides a settings form
+(`config.schema.json`) so you don't have to hand-edit `config.json`.
+
+Or from the command line:
+
 1. Install homebridge using: `npm install -g homebridge`
-2. Install this plugin using: `npm install -g homebridge-philipstv-hue`
+2. Install this plugin using: `npm install -g homebridge-philipstv-hue-2020`
 3. Update your configuration file. See the sample below.
 
 If you do not wish to install from npm (e.g, because you are using a fork), you
 may also clone the git repository into some directory like
-`/usr/local/homebridge/plugins/homebridge-philipstv-hue` and then specify the
-plugin directory as an option (`-P /usr/local/homebridge/plugins`, typically
-using `HOMEBRIDGE_OPTS` in `/etc/default/homebridge`).
+`/usr/local/homebridge/plugins/homebridge-philipstv-hue-2020` and then specify
+the plugin directory as an option (`-P /usr/local/homebridge/plugins`,
+typically using `HOMEBRIDGE_OPTS` in `/etc/default/homebridge`).
 
 # Configuration
  
@@ -135,4 +149,12 @@ Get function for audio/ambilight/etc. should be modified to attend nothing when 
 POST to /6/menuitems/settings/current allow to get current Ambilight settings
 POST to /6/menuitems/settings/update allow to update Ambilight settings
 GET to /6/menuitems/settings/structure allow to have the details of the menu and options
+
+# Contributing
+
+Bug reports and PRs are welcome — see [CONTRIBUTING.md](./CONTRIBUTING.md) for dev setup and the release process.
+
+# License
+
+ISC, see [LICENSE](./LICENSE). This project carries forward the (undeclared) license terms of the fork chain it descends from — see the Description section above for the list of prior authors.
 
