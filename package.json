@@ -1,6 +1,6 @@
 {
   "name": "homebridge-philipstv-hue",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Homebridge module for Philips TV",
   "main": "index.js",
   "repository": {
