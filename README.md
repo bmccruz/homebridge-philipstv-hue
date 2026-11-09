@@ -1,4 +1,4 @@
-SUPPORT THE PROJECT: ☕ [Buy Me a Coffee](https://buymeacoffee.com/bmccruz)
+☕ **Support the project:** [Buy Me a Coffee](https://buymeacoffee.com/bmccruz)
 
 # homebridge-philipstv-enhanced
 Homebridge module for Philips TV (with JointSpace enabled) with Power on/off, Sound, Ambilight with Hue On/Off and source input control
