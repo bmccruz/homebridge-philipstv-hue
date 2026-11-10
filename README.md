@@ -1,9 +1,16 @@
-☕ **Support the project:** [Buy Me a Coffee](https://buymeacoffee.com/bmccruz)
+<div align="center">
+  <p>☕ <strong>Support the project:</strong> <a href="https://buymeacoffee.com/bmccruz">Buy Me a Coffee</a></p>
+</div>
 
-# homebridge-philipstv-enhanced
+
+# homebridge-philipstv-hue
 Homebridge module for Philips TV (with JointSpace enabled) with Power on/off, Sound, Ambilight with Hue On/Off and source input control
 
-# Description
+## License
+
+This project is licensed under the ISC License. See [LICENSE](LICENSE) for details.
+
+## Description
 
 This plugin is a fork of [gw-wiscon](https://github.com/gw-wiscon)'s
 [homebridge-philipstv-x](https://www.npmjs.com/package/homebridge-philipstv-x)
@@ -21,7 +28,21 @@ support for an external "etherwake" executable.
 
 Modified by [bmccruz](https://github.com/bmccruz) to add support to Ambilight+Hue for Saphi TVs.
 
-# Installation
+## Features
+
+- Control TV power, volume and mute through HomeKit's Television service.
+- Use HomeKit's Control Center remote, including configurable Info and Play/Pause buttons.
+- Turn Ambilight on or off and adjust its brightness. Enable Hue lamp power control when the TV supports Ambilight+Hue.
+- Change input sources with the HomeKit input selector. This sends a sequence  of remote-control buttons, so behavior may vary by TV; the selector can be hidden in the configuration.
+- Wake the TV with Wake-on-LAN, an optional `etherwake` executable, or Chromecast where supported.
+- Optionally poll the TV to keep power, audio and enabled lighting states synchronized with HomeKit.
+- Connect over HTTP or HTTPS and use digest credentials for authenticated JointSpace APIs.
+
+Feature availability depends on the TV model, firmware, JointSpace API version
+and configuration. This plugin has been tested on a 2018 Saphi TV; other models
+may require different settings or may not support every feature.
+
+## Installation
 
 1. Install homebridge using: `npm install -g homebridge`
 2. Install this plugin using: `npm install -g homebridge-philipstv-hue`
@@ -33,7 +54,7 @@ may also clone the git repository into some directory like
 plugin directory as an option (`-P /usr/local/homebridge/plugins`, typically
 using `HOMEBRIDGE_OPTS` in `/etc/default/homebridge`).
 
-# Configuration
+## Configuration
  
 Example accessory config (needs to be added to the Homebridge `config.json`):
 
@@ -93,10 +114,14 @@ be remapped, with `"playpause_button": "PlayPause"`. The somewhat flaky input
 source selector (which simply sends a sequence of buttons, hoping to change the
 input) may be disabled with `"hide_input_selector": true`.
 
-# Credentials for 2016 (and newer?) models with Android TV
+## Credentials for 2016 and newer Android TV models
 
-As per [this project](https://github.com/suborb/philips_android_tv) the Android TV 2016 models Philips use an authenticated HTTPS [JointSpace](http://jointspace.sourceforge.net/) API version 6.
-Every control- or status-call needs [digest authentification](https://en.wikipedia.org/wiki/Digest_access_authentication) which contains of a pre generated username and password. You have to do this once for your TV. We reccomend to use the python script [philips\_android\_tv](https://github.com/suborb/philips_android_tv).
+Philips Android TVs from 2016 onward use an authenticated HTTPS
+[JointSpace](http://jointspace.sourceforge.net/) API version 6. Control and
+status requests require a pre-generated username and password for
+[digest authentication](https://en.wikipedia.org/wiki/Digest_access_authentication).
+Pair the TV once using the
+[philips\_android\_tv](https://github.com/suborb/philips_android_tv) script.
 
 Here is an example pairing call for philips\_android\_tv :
 ```
@@ -119,22 +144,20 @@ You can then add username and password key in your homebridge config, example:
   }
 ]
  ```
-# Todo
 
-We should auto detect TV capacity (http/https) and API version by requesting http://tvip:1925/1/system and https://tvip:1926/1/system
+## Contributing
 
-a 2018 TV will answer to /1/system and will report the API version is 6.1
+Contributions are welcome. To propose a change:
 
-For ambilight, we should parse /6/menuitems/settings/structure to instead of relying on static nodeid in the code
-For audio, we should read /API_VERSION/audio/volume to get the max, and map the 0-100% of HomeKit to 0-TVMax. Currently 25 is assumed as max, so we divide homekit value by 4. 43PUS6753 has a volume max to 60 but 25 is already high
+1. Open an issue first for larger changes or feature requests so the approach
+   can be discussed.
+2. Fork the repository and create a branch for your change.
+3. Keep the change focused, and update the README or configuration examples
+   when behavior or options change.
+4. Test with Homebridge and a Philips TV if possible. In your pull request,
+   describe what you tested and note any model or firmware limitations.
+5. Open a pull request with a clear summary and any relevant issue links.
 
-The code need cleanup. Especially it would be nice to use a generic setXStateLoop function, work stated with httpRequest_with_retry
-
-Get function for audio/ambilight/etc. should be modified to attend nothing when the TV is off. When the TV turn on, we should refresh all values
-
-# Dev notes about JointSpace URLs
-
-POST to /6/menuitems/settings/current allow to get current Ambilight settings
-POST to /6/menuitems/settings/update allow to update Ambilight settings
-GET to /6/menuitems/settings/structure allow to have the details of the menu and options
-
+When reporting a problem, include your TV model and model year, firmware/API
+details if known, relevant Homebridge logs, and steps to reproduce. Remove
+credentials and other private information from logs and configuration examples.
