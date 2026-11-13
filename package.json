@@ -1,8 +1,11 @@
 {
   "name": "homebridge-philipstv-hue",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Homebridge module for Philips TV",
   "main": "index.js",
+  "scripts": {
+    "test": "node --check index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bmccruz/homebridge-philipstv-hue.git"
@@ -19,8 +22,8 @@
     "homebridge-plugin"
   ],
   "engines": {
-    "node": ">=0.12.0",
-    "homebridge": ">=0.4.46"
+    "node": ">=16.0.0",
+    "homebridge": ">=1.5.0"
   },
   "author": "bmccruz",
   "license": "ISC",
