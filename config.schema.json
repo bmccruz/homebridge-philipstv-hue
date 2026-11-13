@@ -1,0 +1,142 @@
+{
+  "pluginAlias": "PhilipsTV",
+  "pluginType": "accessory",
+  "singular": false,
+  "headerDisplay": "Configure your Philips TV (JointSpace API) including Ambilight, Hue sync, Wake-on-LAN, and Control Center remote buttons.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "TV Name",
+        "type": "string",
+        "required": true,
+        "default": "Philips TV",
+        "description": "Name of the television as it will appear in the Apple Home app."
+      },
+      "ip_address": {
+        "title": "IP Address",
+        "type": "string",
+        "required": true,
+        "format": "ipv4",
+        "placeholder": "10.0.1.23",
+        "description": "Local IPv4 address of your Philips TV."
+      },
+      "model_year": {
+        "title": "Model Year",
+        "type": "integer",
+        "default": 2018,
+        "minimum": 2011,
+        "maximum": 2030,
+        "description": "Manufacturing year of the TV (e.g., 2016, 2018)."
+      },
+      "poll_status_interval": {
+        "title": "Polling Interval (seconds)",
+        "type": "integer",
+        "default": 60,
+        "minimum": 0,
+        "description": "Interval in seconds to poll the TV for power, audio, and lighting states. Set to 0 to disable polling."
+      },
+      "has_ssl": {
+        "title": "Use HTTPS (SSL)",
+        "type": "boolean",
+        "default": true,
+        "description": "Enable HTTPS communication with the JointSpace API (required on 2016+ Android and 2018+ Saphi models)."
+      },
+      "has_ambilight": {
+        "title": "Enable Ambilight Control",
+        "type": "boolean",
+        "default": false,
+        "description": "Expose Ambilight power and brightness controls in HomeKit."
+      },
+      "has_hue": {
+        "title": "Enable Ambilight + Hue Control",
+        "type": "boolean",
+        "default": false,
+        "description": "Expose Ambilight+Hue lamp power control (supported on Saphi and compatible Philips TVs)."
+      },
+      "has_chromecast": {
+        "title": "Built-in Chromecast Wake Support",
+        "type": "boolean",
+        "default": false,
+        "description": "Access the Chromecast endpoint before waking the TV."
+      },
+      "hide_input_selector": {
+        "title": "Hide Input Source Selector",
+        "type": "boolean",
+        "default": false,
+        "description": "Hide the HDMI/Source input selector in HomeKit."
+      },
+      "info_button": {
+        "title": "Control Center Info Button Mapping",
+        "type": "string",
+        "default": "Options",
+        "description": "Remote key sent when pressing the Info button in the iOS Control Center remote (e.g., Options, Home, Source)."
+      },
+      "playpause_button": {
+        "title": "Control Center Play/Pause Button Mapping",
+        "type": "string",
+        "default": "PlayPause",
+        "description": "Remote key sent when pressing Play/Pause in the iOS Control Center remote (e.g., PlayPause, Options)."
+      },
+      "wol_url": {
+        "title": "Wake-on-LAN URL",
+        "type": "string",
+        "placeholder": "wol://18:8e:d5:a2:8c:66",
+        "description": "Wake-on-LAN URL with the TV MAC address to wake the TV from standby."
+      },
+      "etherwake_exec": {
+        "title": "Etherwake Executable Path",
+        "type": "string",
+        "placeholder": "/usr/sbin/etherwake",
+        "description": "Optional path to an external etherwake binary if built-in WoL fails."
+      },
+      "username": {
+        "title": "JointSpace Username",
+        "type": "string",
+        "description": "Pre-generated digest authentication username (required for 2016+ Android TV models)."
+      },
+      "password": {
+        "title": "JointSpace Password",
+        "type": "string",
+        "description": "Pre-generated digest authentication password (required for 2016+ Android TV models)."
+      }
+    }
+  },
+  "layout": [
+    {
+      "type": "flex",
+      "flex-flow": "row wrap",
+      "items": ["name", "ip_address"]
+    },
+    {
+      "type": "flex",
+      "flex-flow": "row wrap",
+      "items": ["model_year", "poll_status_interval"]
+    },
+    "has_ssl",
+    "has_ambilight",
+    "has_hue",
+    "has_chromecast",
+    "hide_input_selector",
+    {
+      "type": "fieldset",
+      "title": "Remote Control & Wake-on-LAN",
+      "expandable": true,
+      "items": [
+        "info_button",
+        "playpause_button",
+        "wol_url",
+        "etherwake_exec"
+      ]
+    },
+    {
+      "type": "fieldset",
+      "title": "Authentication (Android TV 2016+)",
+      "expandable": true,
+      "items": [
+        "username",
+        "password"
+      ]
+    }
+  ]
+}
